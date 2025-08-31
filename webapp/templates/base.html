@@ -1,0 +1,51 @@
+{% load static %}          
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Internship Portal{% endblock %}</title>
+
+    {# main stylesheet for the whole site #}
+    <link rel="stylesheet" href="{% static 'webapp/css/user_dashboard.css' %}">
+    {% block extra_css %} {% endblock %}
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+
+<body>
+
+    <!---- Navigation bar (site-wide) ---->
+    <nav class="top-nav">
+        <div class="logo-section">
+            <span class="site-name">InternShip Portal</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="{% url 'user_dashboard' %}">Home</a>
+            <a href="{% url 'applied_internships' %}">Internships</a>
+            <a href="{% url 'progress' %}">Progress</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!---- Flash-messages (Django messages framework) ---->
+    <div class="msg-wrapper">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!---- Each child template inserts its own HTML here ---->
+    <div class="content-container">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

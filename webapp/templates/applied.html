@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'webapp/css/applied.css' %}">
+{% endblock %}
+{% block title %}Applied Internships - Internship Portal{% endblock %}
+
+{% block content %}
+<div class="applied-internships-container">
+    <h1>Applied Internships</h1>
+    
+    {% if applications %}
+        <div class="applications-grid">
+            {% for app in applications %}
+                <div class="application-card">
+                    <div class="card-header">
+                        <h3>{{ app.internship.title }}</h3>
+                        <span class="company-name">{{ app.internship.company.name }}</span>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="internship-details">
+                            <p><strong>Location:</strong> {{ app.internship.location }}</p>
+                            <p><strong>Stipend:</strong> {{ app.internship.stipend }}</p>
+                        </div>
+                        
+                        <div class="application-info">
+                            <p><strong>Applied on:</strong> {{ app.applied_at|date:"M d, Y" }}</p>
+                            <span class="status-badge">Applied</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>You haven't applied to any internships yet.</p>
+            <a href="{% url 'user_dashboard' %}" class="browse-btn">Browse Internships</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

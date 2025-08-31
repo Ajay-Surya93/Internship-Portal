@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'webapp/css/progress.css' %}">
+{% endblock %}
+{% block title %}My Progress - Internship Portal{% endblock %}
+
+{% block content %}
+<div class="progress-container">
+    <h1>My Internship Progress</h1>
+    
+    <!-- Progress Overview with Numbers Close -->
+    <div class="progress-overview">
+        <div class="stat-card total">
+            <div class="stat-number">{{ total_applications }}</div>
+            <div class="stat-label">Total Applications</div>
+        </div>
+        <div class="stat-card pending">
+            <div class="stat-number">{{ pending_applications }}</div>
+            <div class="stat-label">Under Review</div>
+        </div>
+        <div class="stat-card accepted">
+            <div class="stat-number">{{ accepted_applications }}</div>
+            <div class="stat-label">Accepted</div>
+        </div>
+        <div class="stat-card rejected">
+            <div class="stat-number">{{ rejected_applications }}</div>
+            <div class="stat-label">Rejected</div>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="chart-section">
+        <div class="chart-container">
+            <h3>Application Flow Chart</h3>
+            <canvas id="applicationChart" width="400" height="200"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Status Distribution</h3>
+            <canvas id="statusChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <!-- Applications List in Boxes -->
+    <div class="applications-section">
+        <h2>My Applications</h2>
+        
+        {% if applications %}
+            <div class="applications-grid">
+                {% for application in applications %}
+                    <div class="application-box {% if application.status == 'pending' %}pending{% elif application.status == 'accepted' %}accepted{% elif application.status == 'rejected' %}rejected{% endif %}">
+                        <div class="application-header">
+                            <h3>{{ application.internship.title }}</h3>
+                            <div class="status-badge status-{{ application.status }}">
+                                {{ application.get_status_display }}
+                            </div>
+                        </div>
+                        
+                        <div class="company-info">
+                            <div class="company-name">{{ application.internship.company.name }}</div>
+                            <div class="company-location">{{ application.internship.location }}</div>
+                        </div>
+                        
+                        <div class="application-details">
+                            <div class="detail-row">
+                                <span class="label">Stipend:</span>
+                                <span class="value">₹{{ application.internship.stipend }}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Applied:</span>
+                                <span class="value">{{ application.applied_at|date:"M d, Y" }}</span>
+                            </div>
+                        </div>
+
+                        {% if application.status == 'rejected' and application.rejection_reason %}
+                            <div class="rejection-reason">
+                                <strong>Reason:</strong> {{ application.rejection_reason }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state-box">
+                <div class="empty-icon">📄</div>
+                <h3>No Applications Yet</h3>
+                <p>You haven't applied to any internships yet. Start exploring opportunities!</p>
+                <a href="{% url 'user_dashboard' %}" class="browse-btn">Browse Internships</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Chart.js Integration -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Application Flow Chart (Bar Chart)
+    const flowCtx = document.getElementById('applicationChart').getContext('2d');
+    const flowChart = new Chart(flowCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Total', 'Under Review', 'Accepted', 'Rejected'],
+            datasets: [{
+                label: 'Applications',
+                data: [{{ total_applications }}, {{ pending_applications }}, {{ accepted_applications }}, {{ rejected_applications }}],
+                backgroundColor: [
+                    '#1976d2',
+                    '#ffc107', 
+                    '#28a745',
+                    '#dc3545'
+                ],
+                borderColor: [
+                    '#125ab6',
+                    '#e0a800',
+                    '#1e7e34',
+                    '#b02a37'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+
+    // Status Distribution (Doughnut Chart)
+    const statusCtx = document.getElementById('statusChart').getContext('2d');
+    const statusChart = new Chart(statusCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Under Review', 'Accepted', 'Rejected'],
+            datasets: [{
+                data: [{{ pending_applications }}, {{ accepted_applications }}, {{ rejected_applications }}],
+                backgroundColor: [
+                    '#ffc107',
+                    '#28a745', 
+                    '#dc3545'
+                ],
+                borderColor: '#fff',
+                borderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

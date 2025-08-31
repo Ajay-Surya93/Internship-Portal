@@ -1,0 +1,56 @@
+/* ──────────  Base layout  ────────── */
+html,body{margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;background:#f8f9fa;color:#333}
+a{text-decoration:none;color:inherit}
+
+/* ──────────  Navigation bar  ────────── */
+.top-nav{background:#fff;border-bottom:1px solid #e0e0e0;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.site-name{font-size:1.4rem;font-weight:700;color:#1976d2}
+.nav-links a{margin-left:24px;font-weight:600;font-size:.9rem;padding:6px 10px;border-radius:4px;transition:background .15s}
+.nav-links a:hover{background:#f1f5ff}
+
+/* ──────────  Flash messages  ────────── */
+.msg-wrapper{max-width:1200px;margin:0 auto;padding:12px}
+.alert{padding:10px 16px;border-radius:4px;margin-bottom:8px;font-size:.85rem}
+.alert-success{background:#e6f4ea;color:#1e7e34}
+.alert-error,.alert-danger{background:#fce8e6;color:#c9302c}
+
+/* ──────────  Page container  ────────── */
+.content-container{max-width:1200px;margin:0 auto;padding:24px}
+
+/* ──────────  Dashboard two-column layout  ────────── */
+.main-container{display:flex;gap:24px;align-items:flex-start}
+.sidebar{flex:0 0 260px;background:#fff;border:1px solid #e0e0e0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:20px;position:sticky;top:88px}
+.sidebar h3{margin:0 0 16px;font-size:1rem;color:#1976d2}
+.sidebar label{display:block;font-size:.8rem;font-weight:600;margin-top:14px;margin-bottom:6px}
+.sidebar input,
+.sidebar select{width:100%;padding:8px 10px;border:1px solid #cfd8dc;border-radius:4px;font-size:.85rem}
+.filter-btn{width:100%;margin-top:18px;background:#1976d2;color:#fff;border:none;padding:10px;border-radius:4px;font-weight:600;cursor:pointer;transition:background .15s}
+.filter-btn:hover{background:#125ab6}
+
+/* ──────────  Internship list  ────────── */
+.internships-content{flex:1;min-width:0}
+.internships-content h1{margin-top:0;color:#1976d2;font-size:1.6rem}
+.internships-list{display:flex;flex-direction:column;gap:20px}
+
+/* ── Card  ── */
+.internship-card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.05);padding:24px;transition:box-shadow .15s}
+.internship-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.internship-card h2{margin:0 0 6px;font-size:1.25rem;font-weight:700}
+.company-name{color:#1976d2;font-weight:700;margin-bottom:12px}
+.internship-meta p{margin:4px 0;font-size:.9rem}
+.card-actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+
+/* Buttons */
+.apply-btn,.login-link{background:#4285f4;color:#fff;border:none;padding:8px 20px;border-radius:4px;font-size:.85rem;font-weight:600;cursor:pointer;transition:background .15s}
+.apply-btn:hover,.login-link:hover{background:#2a6adf}
+.applied-btn{background:#cfd8dc;color:#616161;border:none;padding:8px 20px;border-radius:4px;font-size:.85rem;font-weight:600;cursor:not-allowed}
+
+/* Empty state */
+.empty-state{padding:40px;text-align:center;color:#616161;font-size:.95rem}
+
+/* ──────────  Responsive  ────────── */
+@media(max-width:768px){
+  .main-container{flex-direction:column}
+  .sidebar{width:100%;position:static}
+  .nav-links a{margin-left:16px}
+}

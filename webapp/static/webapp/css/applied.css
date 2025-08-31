@@ -1,0 +1,102 @@
+.applied-internships-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.applied-internships-container h1 {
+    color: #19346D;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.applications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.application-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(70, 166, 255, 0.1);
+    border: 1px solid #f0f4f8;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.application-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(70, 166, 255, 0.15);
+}
+
+.card-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+.card-header h3 {
+    color: #19346D;
+    margin: 0 0 8px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.company-name {
+    color: #377dfe;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.internship-details p {
+    margin: 6px 0;
+    color: #4a5a72;
+    font-size: 0.95rem;
+}
+
+.application-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.application-info p {
+    margin: 0;
+    color: #5b708f;
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    background: linear-gradient(135deg, #4caf50, #45a049);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(70, 166, 255, 0.08);
+}
+
+.browse-btn {
+    background: linear-gradient(135deg, #377dfe, #46a6ff);
+    color: white;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 28px;
+    font-weight: 600;
+}
